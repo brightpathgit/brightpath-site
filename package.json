@@ -1,0 +1,8 @@
+{
+  "name": "brightpath-site",
+  "private": true,
+  "license": "MIT",
+  "dependencies": {
+    "@sendgrid/mail": "^8.1.0"
+  }
+}

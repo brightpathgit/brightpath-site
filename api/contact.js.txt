@@ -1,0 +1,57 @@
+import sgMail from "@sendgrid/mail";
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+export default async function handler(req, res) {
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" });
+  }
+
+  const { name, email, business, message, company_website } = req.body || {};
+
+  // Honeypot: if bots fill this, silently OK
+  if (company_website) {
+    return res.status(200).json({ message: "Thanks!" });
+  }
+
+  if (!name || !email || !message) {
+    return res.status(400).json({ error: "Name, email, and message are required." });
+  }
+
+  const html = `
+    <div style="font-family:Arial,Helvetica,sans-serif;line-height:1.5">
+      <h2>New Website Inquiry</h2>
+      <p><strong>Name:</strong> ${escapeHtml(name)}</p>
+      <p><strong>Email:</strong> ${escapeHtml(email)}</p>
+      ${business ? `<p><strong>Business:</strong> ${escapeHtml(business)}</p>` : ""}
+      <p><strong>Message:</strong><br>${escapeHtml(message).replace(/\n/g, "<br>")}</p>
+    </div>
+  `;
+
+  try {
+    await sgMail.send({
+      to: process.env.TO_EMAIL,
+      from: {
+        email: process.env.FROM_EMAIL,
+        name: process.env.FROM_NAME || "BrightPath Website",
+      },
+      replyTo: email,
+      subject: `New inquiry from ${name}`,
+      html,
+    });
+
+    res.status(200).json({ message: "Thanks! Your message has been sent." });
+  } catch (err) {
+    console.error("SendGrid error:", err.response?.body || err);
+    res.status(500).json({ error: "Failed to send email." });
+  }
+}
+
+function escapeHtml(str = "") {
+  return String(str)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
