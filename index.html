@@ -11,23 +11,33 @@
   html,body{margin:0;padding:0;background:var(--cream);color:#111827;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif}
   a{color:inherit;text-decoration:none}
   img{max-width:100%;display:block}
+
   .container{max-width:1200px;margin:0 auto;padding:0 20px}
+  .row{display:grid;grid-template-columns:1fr;gap:24px}
+  @media(min-width:900px){
+    .row-2{grid-template-columns:1.1fr .9fr}
+    .row-3{grid-template-columns:repeat(3,1fr)}
+    .row-4{grid-template-columns:repeat(4,1fr)}
+  }
+
   .btn{display:inline-flex;align-items:center;gap:.5rem;border-radius:16px;padding:.875rem 1.25rem;font-weight:600;transition:.2s ease;cursor:pointer;border:2px solid transparent}
   .btn-primary{background:var(--navySoft);color:#fff}
   .btn-outline{background:transparent;color:var(--navy);border-color:var(--navy)}
   .btn-phone{background:var(--teal);color:#fff;border:none}
+
   header.site-header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.95);backdrop-filter:saturate(1.2) blur(6px);border-bottom:1px solid #e5e7eb;padding:8px 0}
   header .brand{display:flex;align-items:center;gap:12px}
   nav.topnav{display:flex;gap:28px;color:var(--navy);align-items:center}
   nav.topnav a{font-size:.95rem;opacity:.9;font-weight:500}
+
   .sparkle-badge{width:36px;height:36px;border-radius:14px;display:grid;place-items:center;background:transparent}
   .sparkle-badge img{width:20px;height:20px;display:block}
-  .row{display:grid;grid-template-columns:1fr;gap:24px}
-  @media(min-width:900px){.row-2{grid-template-columns:1.1fr .9fr}.row-3{grid-template-columns:repeat(3,1fr)}.row-4{grid-template-columns:repeat(4,1fr)}nav.topnav{display:flex!important}}
+
   .kicker{letter-spacing:.22em;text-transform:uppercase;color:var(--teal);font-weight:700;font-size:1.2rem}
   h1{font-size:clamp(2.4rem,3.8vw,3.4rem);line-height:1.15;margin:0}
   h2{font-size:clamp(2.3rem,4vw,3rem);line-height:1.15;margin:.25rem 0 0}
   p.lead{font-size:1.0625rem;color:#374151}
+
   section{padding:68px 0}
   .section-title{max-width:820px;margin:0 auto 28px;text-align:center}
   .card{background:#fff;border:1px solid #e5e7eb;border-radius:18px;box-shadow:0 6px 18px rgba(17,36,58,.06)}
@@ -37,22 +47,33 @@
   .stat{text-align:center}
   .stat .value{font-weight:800;color:var(--navy);font-size:1.6rem}
   .stat .label{color:#334155;font-size:.9rem}
+
+  /* Tight hero spacing as you approved */
   .hero{position:relative;overflow:hidden;background:none}
   .hero .row{padding:4px 0 24px}
+
   .trust-box{border-radius:22px;overflow:hidden}
   .trust-box .placeholder{height:260px;display:grid;place-items:center;color:#6b7280;background:#ffffff}
+
   footer{border-top:1px solid #e5e7eb;background:#fff}
+
+  /* About image sizing – keeps headshot tasteful on all screens */
+  .about-photo{width:100%;max-width:420px;border-radius:16px;display:block;margin:0 auto 16px}
+  @media(min-width:900px){ .about-photo{max-width:520px} }
+
+  /* Contact form mobile fix */
   form#contactForm input, form#contactForm textarea{width:100%}
   @media(max-width:600px){form#contactForm{grid-template-columns:1fr!important}}
 </style>
 </head>
 <body>
+  <!-- Header -->
   <header class="site-header">
     <div class="container" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
       <a href="#home" class="brand">
         <div class="sparkle-badge" aria-hidden="true">
-          <img src="images/Sparkle-Outline.png" 
-               srcset="images/Sparkle-Outline.png 1x, images/Sparkle-Outline@2x.png 2x" 
+          <img src="images/Sparkle-Outline.png"
+               srcset="images/Sparkle-Outline.png 1x, images/Sparkle-Outline@2x.png 2x"
                width="20" height="20" alt="Sparkle Icon" />
         </div>
         <div>
@@ -73,6 +94,7 @@
     </div>
   </header>
 
+  <!-- Hero -->
   <section id="home" class="hero">
     <div class="container">
       <div class="row row-2" style="align-items:center;min-height:560px">
@@ -92,8 +114,8 @@
         <div>
           <div class="card trust-box">
             <div class="card-body">
-              <img src="images/hero-dashboard.jpg" 
-                   srcset="images/hero-dashboard.jpg 1x, images/hero-dashboard@2x.jpg 2x" 
+              <img src="images/hero-dashboard.jpg"
+                   srcset="images/hero-dashboard.jpg 1x, images/hero-dashboard@2x.jpg 2x"
                    alt="Financial dashboard preview"
                    style="width:100%;height:auto;border-radius:12px;display:block"
                    onerror="this.style.display='none';document.getElementById('dashPh').style.display='grid';"/>
@@ -105,6 +127,7 @@
     </div>
   </section>
 
+  <!-- Services (FULL) -->
   <section id="services" style="background:#fff">
     <div class="section-title">
       <div class="kicker">SERVICES</div>
@@ -112,10 +135,69 @@
       <p class="lead">Everything you need to keep books current and insights flowing, without the busywork.</p>
     </div>
     <div class="container row row-3">
-      <!-- (all service cards retained here — omitted for brevity in message) -->
+      <div class="card"><div class="card-body">
+        <div style="display:flex;gap:12px;align-items:center">
+          <div class="pill-icon">
+            <svg viewBox="0 0 24 24" width="20" height="20" stroke="var(--teal)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13V7"/><path d="M4 20h16"/><path d="M8 20V4"/><path d="M12 20v-6"/><path d="M16 20v-4"/></svg>
+          </div>
+          <h3 style="margin:0;color:var(--navy)">Bookkeeping</h3>
+        </div>
+        <p class="lead" style="font-size:.98rem;margin-top:10px">Accurate, audit-ready records with monthly reconciliations and AR/AP management.</p>
+      </div></div>
+
+      <div class="card"><div class="card-body">
+        <div style="display:flex;gap:12px;align-items:center">
+          <div class="pill-icon">
+            <svg viewBox="0 0 24 24" width="20" height="20" stroke="var(--teal)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h13"/><path d="M9 20V4"/><path d="M3 16h13"/><path d="M19 8v8"/></svg>
+          </div>
+          <h3 style="margin:0;color:var(--navy)">Financial Analysis</h3>
+        </div>
+        <p class="lead" style="font-size:.98rem;margin-top:10px">Cash flow forecasting, profitability breakdowns, and actionable insights.</p>
+      </div></div>
+
+      <div class="card"><div class="card-body">
+        <div style="display:flex;gap:12px;align-items:center">
+          <div class="pill-icon">
+            <svg viewBox="0 0 24 24" width="20" height="20" stroke="var(--teal)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 13l3-3 4 4 3-3"/></svg>
+          </div>
+          <h3 style="margin:0;color:var(--navy)">Process Improvement</h3>
+        </div>
+        <p class="lead" style="font-size:.98rem;margin-top:10px">Workflow audits, automation, and integrations to save time and reduce errors.</p>
+      </div></div>
+
+      <div class="card"><div class="card-body">
+        <div style="display:flex;gap:12px;align-items:center">
+          <div class="pill-icon">
+            <svg viewBox="0 0 24 24" width="20" height="20" stroke="var(--teal)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8"/><path d="M18 2v4"/><path d="M21 5h-6"/></svg>
+          </div>
+          <h3 style="margin:0;color:var(--navy)">Cleanup & Catch Up</h3>
+        </div>
+        <p class="lead" style="font-size:.98rem;margin-top:10px">Behind on books? I’ll untangle the mess and set you up with simple, sustainable systems.</p>
+      </div></div>
+
+      <div class="card"><div class="card-body">
+        <div style="display:flex;gap:12px;align-items:center">
+          <div class="pill-icon">
+            <svg viewBox="0 0 24 24" width="20" height="20" stroke="var(--teal)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18"/><path d="M12 3v18"/></svg>
+          </div>
+          <h3 style="margin:0;color:var(--navy)">Advisory & Analytics</h3>
+        </div>
+        <p class="lead" style="font-size:.98rem;margin-top:10px">Scenario analysis and actionable insights, so you can decide with confidence.</p>
+      </div></div>
+
+      <div class="card"><div class="card-body">
+        <div style="display:flex;gap:12px;align-items:center">
+          <div class="pill-icon">
+            <svg viewBox="0 0 24 24" width="20" height="20" stroke="var(--teal)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7V3h8v4"/><rect x="5" y="7" width="14" height="14" rx="2"/></svg>
+          </div>
+          <h3 style="margin:0;color:var(--navy)">Reporting & Dashboards</h3>
+        </div>
+        <p class="lead" style="font-size:.98rem;margin-top:10px">Custom dashboards and reports to monitor progress and turn data into decisions.</p>
+      </div></div>
     </div>
   </section>
 
+  <!-- About -->
   <section id="about" style="background:linear-gradient(180deg,var(--cream),#fff)">
     <div class="section-title">
       <div class="kicker">ABOUT</div>
@@ -124,10 +206,11 @@
     </div>
     <div class="container row row-2" style="align-items:center">
       <div>
-        <img id="aboutPhoto" src="images/holly-headshot.jpg"
+        <img id="aboutPhoto"
+             class="about-photo"
+             src="images/holly-headshot.jpg"
              srcset="images/holly-headshot.jpg 1x, images/holly-headshot@2x.jpg 2x"
              alt="Holly Smith — BrightPath Financial"
-             style="width:100%;max-width:520px;border-radius:16px;display:block;margin:0 auto 16px"
              onerror="this.style.display='none';document.getElementById('aboutPh').style.display='grid';"/>
         <div id="aboutPh" class="placeholder" style="display:none;height:320px;border-radius:16px">ABOUT PHOTO PLACEHOLDER</div>
         <div style="color:#374151;line-height:1.65;margin-top:8px">
@@ -149,6 +232,22 @@
     </div>
   </section>
 
+  <!-- Process -->
+  <section id="process" style="background:#fff">
+    <div class="section-title">
+      <div class="kicker">PROCESS</div>
+      <h2>A simple path to clarity</h2>
+      <p class="lead">Clear steps, clear outcomes, and communication you’ll never have to chase.</p>
+    </div>
+    <div class="container row row-4">
+      <div class="card step"><div class="card-body"><div class="kicker" style="color:var(--teal)">STEP 01</div><h3 style="margin:.25rem 0;color:var(--navy)">Consultation</h3><p class="lead" style="font-size:.98rem">We align on goals, scope, and timelines. You’ll leave with a simple plan and next steps.</p></div></div>
+      <div class="card step"><div class="card-body"><div class="kicker" style="color:var(--pink)">STEP 02</div><h3 style="margin:.25rem 0;color:var(--navy)">Clean & Connect</h3><p class="lead" style="font-size:.98rem">Securely connect bank feeds, establish rules, and clean up historic data.</p></div></div>
+      <div class="card step"><div class="card-body"><div class="kicker" style="color:var(--orange)">STEP 03</div><h3 style="margin:.25rem 0;color:var(--navy)">Monthly Close</h3><p class="lead" style="font-size:.98rem">On-time reconciliations, review-ready financials, and a short summary in plain English.</p></div></div>
+      <div class="card step"><div class="card-body"><div class="kicker" style="color:var(--teal)">STEP 04</div><h3 style="margin:.25rem 0;color:var(--navy)">Insights & Adjust</h3><p class="lead" style="font-size:.98rem">Dashboards and trend reviews translate your numbers into confident decisions.</p></div></div>
+    </div>
+  </section>
+
+  <!-- Contact -->
   <section id="contact" style="background:linear-gradient(135deg,var(--navySoft),var(--navySoft));color:#fff">
     <div class="container row row-2" style="align-items:center">
       <div>
@@ -169,7 +268,7 @@
               <input name="business" placeholder="Business Name" style="grid-column:span 2" />
               <textarea name="message" placeholder="How can I help?" rows="5" style="grid-column:span 2"></textarea>
               <button class="btn btn-primary" type="submit" style="grid-column:span 2;justify-content:center">Send Message</button>
-              <p id="formStatus" style="grid-column:span 2;margin:.5rem 0 0;color:#6b7280;font-size:.8rem"></p>
+              <p id="formStatus" style="grid-column:span 2;margin:.5rem 0 0;color:#cbd5e1;font-size:.85rem"></p>
             </form>
           </div>
         </div>
@@ -177,6 +276,7 @@
     </div>
   </section>
 
+  <!-- Footer -->
   <footer>
     <div class="container" style="display:flex;align-items:center;justify-content:space-between;padding:22px 0;gap:16px;flex-wrap:wrap">
       <div style="color:#6b7280;font-size:.95rem">© <span id="year"></span> BrightPath Financial. All rights reserved.</div>
@@ -190,31 +290,41 @@
 
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
-  const form = document.getElementById('contactForm');
-  const status = document.getElementById('formStatus');
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    status.textContent = 'Sending…';
-    try {
-      const res = await fetch(form.action, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(Object.fromEntries(new FormData(form)))
-      });
-      const data = await res.json().catch(() => ({}));
-      if (res.ok && data.ok) {
-        form.reset();
-        status.style.color = '#10b981';
-        status.textContent = 'Thanks! I’ll be in touch within 1 business day.';
-      } else {
+
+  (function () {
+    const form = document.getElementById('contactForm');
+    if (!form) return;
+    const status = document.getElementById('formStatus');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      status.style.color = '#cbd5e1';
+      status.textContent = 'Sending…';
+
+      const payload = Object.fromEntries(new FormData(form).entries());
+
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+
+        const data = await res.json().catch(() => ({}));
+        if (res.ok && data.ok) {
+          form.reset();
+          status.style.color = '#10b981';
+          status.textContent = 'Thanks! I’ll be in touch within 1 business day.';
+        } else {
+          status.style.color = '#ef4444';
+          status.textContent = data.error || 'Something went wrong. Please try again.';
+        }
+      } catch (err) {
         status.style.color = '#ef4444';
-        status.textContent = data.error || 'Something went wrong. Please try again.';
+        status.textContent = 'Network error. Please try again.';
       }
-    } catch (err) {
-      status.style.color = '#ef4444';
-      status.textContent = 'Network error. Please try again.';
-    }
-  });
+    });
+  })();
 </script>
 </body>
 </html>
