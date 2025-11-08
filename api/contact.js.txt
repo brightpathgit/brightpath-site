@@ -1,6 +1,7 @@
-import sgMail from "@sendgrid/mail";
+// /api/contact.js
+const sgMail = require("@sendgrid/mail");
 
-export default async function handler(req, res) {
+module.exports = async (req, res) => {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
@@ -12,34 +13,38 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: "Name, email, and message are required." });
   }
 
-  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-
-  const FROM_EMAIL = process.env.FROM_EMAIL || "holly@brightpathfinancial.co";
-  const TO_EMAIL = process.env.TO_EMAIL || "holly@brightpathfinancial.co";
-  const SITE_NAME = process.env.SITE_NAME || "BrightPath Financial";
-
-  const msg = {
-    to: TO_EMAIL,
-    from: { email: FROM_EMAIL, name: SITE_NAME },
-    replyTo: { email, name },
-    subject: `New website inquiry from ${name}`,
-    text: `Name: ${name}\nEmail: ${email}\nBusiness: ${business || "-"}\nMessage:\n${message}`,
-    html: `
-      <div style="font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;line-height:1.6">
-        <h2>${SITE_NAME} — New Inquiry</h2>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Business:</strong> ${business || "-"}</p>
-        <p><strong>Message:</strong><br/>${(message || "").replace(/\\n/g, "<br/>")}</p>
-      </div>
-    `,
-  };
-
   try {
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+    const FROM_EMAIL = process.env.FROM_EMAIL || "holly@brightpathfinancial.co";
+    const TO_EMAIL = process.env.TO_EMAIL || "holly@brightpathfinancial.co";
+    const SITE_NAME = process.env.SITE_NAME || "BrightPath Financial";
+
+    const msg = {
+      to: TO_EMAIL,
+      from: { email: FROM_EMAIL, name: SITE_NAME },
+      replyTo: { email, name },
+      subject: `New website inquiry from ${name}`,
+      text: `Name: ${name}
+Email: ${email}
+Business: ${business || "-"}
+Message:
+${message}`,
+      html: `
+        <div style="font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;line-height:1.6">
+          <h2 style="margin:0 0 8px">${SITE_NAME} — New Inquiry</h2>
+          <p><strong>Name:</strong> ${name}</p>
+          <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Business:</strong> ${business || "-"}</p>
+          <p><strong>Message:</strong><br/>${(message || "").replace(/\n/g, "<br/>")}</p>
+        </div>
+      `,
+    };
+
     await sgMail.send(msg);
     return res.status(200).json({ ok: true, message: "Sent" });
   } catch (error) {
-    console.error("SendGrid error:", error);
+    console.error("SendGrid error:", error?.response?.body || error);
     return res.status(500).json({ error: "Failed to send message." });
   }
-}
+};
