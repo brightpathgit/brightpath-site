@@ -48,7 +48,7 @@
   .stat .value{font-weight:800;color:var(--navy);font-size:1.6rem}
   .stat .label{color:#334155;font-size:.9rem}
 
-  /* Tight hero spacing as you approved */
+  /* Tight hero spacing (approved) */
   .hero{position:relative;overflow:hidden;background:none}
   .hero .row{padding:4px 0 24px}
 
@@ -57,9 +57,9 @@
 
   footer{border-top:1px solid #e5e7eb;background:#fff}
 
-  /* About image sizing – keeps headshot tasteful on all screens */
-  .about-photo{width:100%;max-width:420px;border-radius:16px;display:block;margin:0 auto 16px}
-  @media(min-width:900px){ .about-photo{max-width:520px} }
+  /* About image sizing – smaller and consistent */
+  .about-photo{width:100%;max-width:340px;border-radius:16px;display:block;margin:0 auto}
+  @media(min-width:900px){ .about-photo{max-width:360px} }
 
   /* Contact form mobile fix */
   form#contactForm input, form#contactForm textarea{width:100%}
@@ -197,14 +197,16 @@
     </div>
   </section>
 
-  <!-- About -->
+  <!-- About (IMAGE LEFT, TEXT + NAVY CARD RIGHT) -->
   <section id="about" style="background:linear-gradient(180deg,var(--cream),#fff)">
     <div class="section-title">
       <div class="kicker">ABOUT</div>
       <h2>Hi, I’m Holly, your finance co-pilot</h2>
       <p class="lead">20 years in corporate financial analysis. A lifelong love for small business. I translate your numbers into next steps.</p>
     </div>
-    <div class="container row row-2" style="align-items:center">
+
+    <div class="container row row-2" style="align-items:start">
+      <!-- Left: photo (smaller) -->
       <div>
         <img id="aboutPhoto"
              class="about-photo"
@@ -212,15 +214,18 @@
              srcset="images/holly-headshot.jpg 1x, images/holly-headshot@2x.jpg 2x"
              alt="Holly Smith — BrightPath Financial"
              onerror="this.style.display='none';document.getElementById('aboutPh').style.display='grid';"/>
-        <div id="aboutPh" class="placeholder" style="display:none;height:320px;border-radius:16px">ABOUT PHOTO PLACEHOLDER</div>
-        <div style="color:#374151;line-height:1.65;margin-top:8px">
+        <div id="aboutPh" class="placeholder" style="display:none;height:280px;border-radius:16px">ABOUT PHOTO PLACEHOLDER</div>
+      </div>
+
+      <!-- Right: paragraph ABOVE the navy card -->
+      <div>
+        <div style="color:#374151;line-height:1.65;margin:0 0 16px 0">
           <p>I’ve loved small businesses since childhood, inspired by watching my mom start her own business. That early experience fueled my entrepreneurial spirit and sparked my passion for analyzing how businesses work. Over the last 20 years, I’ve built my career in corporate financial analysis, developing financial models, creating dashboards, and uncovering insights that drive growth and efficiency. Today, I bring that same passion and expertise to help small businesses optimize their processes, gain clarity, and reach peak performance.</p>
         </div>
-      </div>
-      <div>
+
         <div class="card card-dark">
           <div class="card-body">
-            <ul style="list-style:none;padding-left:0;margin:12px 0 0;line-height:1.8;color:#e5e7eb">
+            <ul style="list-style:none;padding-left:0;margin:0;line-height:1.8;color:#e5e7eb">
               <li>✔︎ 20 yrs corporate finance & analysis</li>
               <li>✔︎ QuickBooks Online ProAdvisor</li>
               <li>✔︎ Analytics & dashboarding (Power BI/Looker Studio)</li>
@@ -267,6 +272,8 @@
               <input name="email" type="email" required placeholder="Email" />
               <input name="business" placeholder="Business Name" style="grid-column:span 2" />
               <textarea name="message" placeholder="How can I help?" rows="5" style="grid-column:span 2"></textarea>
+ 		<!-- Honeypot field -->
+  		<input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
               <button class="btn btn-primary" type="submit" style="grid-column:span 2;justify-content:center">Send Message</button>
               <p id="formStatus" style="grid-column:span 2;margin:.5rem 0 0;color:#cbd5e1;font-size:.85rem"></p>
             </form>
@@ -328,3 +335,4 @@
 </script>
 </body>
 </html>
+
